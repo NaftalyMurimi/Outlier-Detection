@@ -1,0 +1,92 @@
+---
+title: "Outlier Detection"
+author: "M"
+date: '2025-04-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load data
+
+```{r}
+setwd("C:/Users/User/Desktop/R2/R/Dev")
+rm(list = ls())
+Data = read.csv("networth.csv")
+Data
+```
+# Visualization of data to see outlier
+```{r}
+boxplot(Data$Age)
+```
+```{r}
+boxplot(Data$Net_worth, ylab="Networth in *10000 PLN")
+```
+# Scatter Plot
+```{r}
+plot(Data$Age, Data$Net_worth)
+```
+```{r}
+library(ggplot2)
+ggplot(Data, aes(x = Age, y = Net_worth)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "blue") +
+  labs(title = "Net Worth by Age", x = "Age", y = "Net Worth") +
+  theme_minimal()
+  
+```
+# Detecting outlier using interquatile range
+```{r}
+Q1 <- quantile(Data$Age, 0.25)
+Q3 <- quantile(Data$Age, 0.75)
+IQR <- Q3 - Q1
+
+lower_bound <- Q1 - 1.5 * IQR
+upper_bound <- Q3 + 1.5 * IQR
+
+outliers <- Data$Age[Data$Age < lower_bound | Data$Age > upper_bound]
+print(outliers)
+```
+```{r}
+Q1 <- quantile(Data$Net_worth, 0.25)
+Q3 <- quantile(Data$Net_worth, 0.75)
+IQR <- Q3 - Q1
+
+lower_bound <- Q1 - 1.5 * IQR
+upper_bound <- Q3 + 1.5 * IQR
+
+outliers <- Data$Net_worth[Data$Net_worth < lower_bound | Data$Net_worth > upper_bound]
+print(outliers)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
