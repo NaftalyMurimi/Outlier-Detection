@@ -12,7 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Load data
 
 ```{r}
-setwd("C:/Users/User/Desktop/R2/R/Dev")
+setwd("C:/Users/User/Desktop/R2/Dev/Outlier-Detection/R")
+#
 rm(list = ls())
 Data = read.csv("networth.csv")
 Data
@@ -59,6 +60,10 @@ upper_bound <- Q3 + 1.5 * IQR
 
 outliers <- Data$Net_worth[Data$Net_worth < lower_bound | Data$Net_worth > upper_bound]
 print(outliers)
+```
+# summary
+```{r}
+summary(Data)
 ```
 
 
